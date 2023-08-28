@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
+    {{ parent () }}
     <article>
         <h2>{{ pin.title }}</a></h2>
         <p>{{ pin.description }}</p>
     </article>
+    <a href="{{ path('app_pin_edit',{id:pin.id}) }}">Edit</a> |
     <a href="{{ path('app_home') }}">Home</a>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Edit {{ pin.title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Pin - {{ pin.title }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Update Pin" formnovalidate>
+    <a href="{{ path('app_pin_show', {id:pin.id}) }}"><input type="button" value="Cancel"></a>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

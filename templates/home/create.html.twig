@@ -10,6 +10,8 @@
     {{ form_widget(form) }}
 
     <input type="submit" value="Create Pin" formnovalidate>
+    <a href="{{ path('app_home') }}"><input type="button" value="Go home"></a>
+
     {{ form_rest(form) }}
     {{ form_end(form) }}
 {% endblock %}

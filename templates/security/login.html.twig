@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Log in!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="mt-5 mb-3 text-center">Please sign in</h1>
+            <p class="mb-5 text-center text-muted">Time to add your Pins</p>
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-error rounded mb-3" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control"
+                           autocomplete="email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" autocomplete="current-password"
+                           required>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
+                            <label class="form-check-label" for="_remember_me">Remember me</label>
+                            <a href="{{ path('app_forgot_password_request') }}">Forget password?</a>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign in
+                </button>
+            </form>
+            <p class="mt-5 mb-3 text-muted text-center">Not registered yet? <a href="{{ path('app_register') }}">Create an account</a></p>
+        </div>
+    </div>
+{% endblock %}

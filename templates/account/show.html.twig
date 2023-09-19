@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Account{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto text-center">
+            <h1 class="my-5">Profile</h1>
+            <img src="{{ app.user.gravatar }}" alt="{{ app.user.fullName }}'s avatar" class="shadow rounded-circle mb-5">
+            <h2>{{ app.user.fullName }}</h2>
+            <p class="lead">{{ app.user.email }}</p>
+            <p class="text-muted"><small>Member Since {{ app.user.createdAt| date('Y-m-d') }}</small></p>
+            <p>
+                <a href="{{ path('app_account_edit') }}">Edit Account</a> | <a href="{{ path('app_account_change_password') }}">Change Password</a>
+            </p>
+
+
+            {% if app.user.verified %}
+            <p> Verified account</p>
+            {% else %}
+            <p> Not yet verified - <a href="#">Verify your account</a></p>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

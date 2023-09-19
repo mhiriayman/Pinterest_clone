@@ -13,12 +13,6 @@ trait Timestampable
      * @ORM\Column(type="datetime")
      */
     private $updateAt;
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

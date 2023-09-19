@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ parent() }} - Edit account{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="my-5 text-center">Update Account</h1>
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.lastName) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            <button type="submit" class="btn btn-primary btn-lg btn-block" formnovalidate>Apply changes</button>
+            <a href="{{ path('app_account') }}" class="btn btn-danger btn-lg btn-block">Cancel</a>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

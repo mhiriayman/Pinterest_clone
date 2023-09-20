@@ -63,6 +63,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     /*Redefinir la methode start du abstract controller pour que les utilisateurs ne peuvent pas accéder aux url sans etre connecter */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
+        $request->getSession()->getFlashBag()->add('error','You need to login first !');
+
         $url = $this->getLoginUrl($request);
 
         return new RedirectResponse($url);

@@ -20,7 +20,7 @@
                                  alt="{{ pin.title }}" class="w-100">
                         </a>
                         </div>
-                        <h5 class="pl-3 pr-3 pt-3"><a href="{{ path('app_pin_show', {id: pin.id }) }}" class="text-muted text-decoration-none text-secondary">{{ pin.title }}</a></h5>
+                        <h5 class="pl-3 pr-3 pt-3 text-truncate"><a href="{{ path('app_pin_show', {id: pin.id }) }}" class="text-muted text-decoration-none text-secondary">{{ pin.title }}</a></h5>
                         <p class="text-muted pl-3 pr-3 pb-3"><small>Submitted by {{ pin.user.fullName }}</small></p>
                     </article>
 

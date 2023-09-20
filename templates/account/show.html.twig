@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <h1 class="my-5">Profile</h1>
-            <img src="{{ app.user.gravatar }}" alt="{{ app.user.fullName }}'s avatar" class="shadow rounded-circle mb-5">
+            <img src="{{ app.user.gravatarUrl }}" alt="{{ app.user.fullName }}'s avatar" class="shadow rounded-circle mb-5">
             <h2>{{ app.user.fullName }}</h2>
             <p class="lead">{{ app.user.email }}</p>
             <p class="text-muted"><small>Member Since {{ app.user.createdAt| date('Y-m-d') }}</small></p>

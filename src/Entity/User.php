@@ -191,7 +191,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getFirstName() . ' '. $this->getLastName();
     }
 
-    public function gravatar(?int $size = 100): string
+    public function getGravatarUrl(?int $size = 100): string
     {
         return sprintf('https://www.gravatar.com/avatar/%s/?&s=%d',md5(strtolower(trim($this->getEmail()))), $size);
     }

@@ -19,7 +19,7 @@
                         <time datetime="{{ pin.createdAt|date('Y-m-d H:i') }}">{{ pin.createdAt|ago }}</time>
                     </small></p>
                 <p class="pl-3 pr-3 pb-3 text-break">{{ pin.description }}</p>
-                {% if app.user == pin.user %}
+                {% if is_granted('PIN_MANAGE', pin) %}
                 <div class="pl-3 pb-3">
                     <a href="{{ path('app_pin_edit',{id:pin.id}) }}" class="btn btn-light">Edit</a>
                     <a href="#"

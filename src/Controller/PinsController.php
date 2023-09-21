@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
-use App\Entity\User;
 use App\Form\CreatePinType;
 use App\Repository\PinRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,14 +41,13 @@ class PinsController extends AbstractController
     }
     /**
      * @Route("/pin/create", name="app_pin_create", methods={"GET","POST"})
+     * @IsGranted("PIN_CREATE")
      */
     public function create(Request $request): Response
     {
         $pin = new Pin;
         $form = $this->createForm(CreatePinType::class, $pin);
         $form->handleRequest($request);
-        //$user = $this->getUser();
-        //dd($user);
         if ($form->isSubmitted() && $form->isValid()) {
             $pin->setUser($this->getUser());
             $this->entityManager->persist($pin);
@@ -62,18 +61,17 @@ class PinsController extends AbstractController
     /**
      * @Route("/pin/{id<[0-9]+>}", name="app_pin_show", methods="GET")
      */
-    public function show(int $id): Response
+    public function show(Pin $pin): Response
     {
-        $pin = $this->pinRepository->find($id);
         return $this->render('home/show.html.twig', compact('pin'));
     }
 
     /**
      * @Route("/pin/{id<[0-9]+>}/edit", name="app_pin_edit", methods={"GET","PUT"})
+     * @IsGranted("PIN_MANAGE", subject="pin")
      */
-    public function edit(int $id, Request $request): Response
+    public function edit(Pin $pin, Request $request): Response
     {
-        $pin = $this->pinRepository->find($id);
         $form = $this->createForm(CreatePinType::class, $pin, [
             'method'=>'PUT'
         ]);
@@ -81,17 +79,17 @@ class PinsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Pin Successfully Updated!');
-            return $this->redirectToRoute('app_pin_show', compact('id'));
+            return $this->redirectToRoute('app_pin_show', ['id'=>$pin->getId()]);
         }
         return $this->render('home/edit.html.twig', ['pin' => $pin, 'form' => $form->createView()]);
     }
 
     /**
      * @Route("/pin/{id}", name="app_pin_delete", methods="DELETE")
+     * @IsGranted("PIN_MANAGE", subject="pin")
      */
-    public function delete(Request $request, int $id): Response
+    public function delete(Request $request, Pin $pin): Response
     {
-        $pin = $this->pinRepository->find($id);
         if ($this->isCsrfTokenValid('pin_delete_'.$pin->getId(), $request->request->get('csrf_token'))) {
             $this->entityManager->remove($pin);
             $this->entityManager->flush();
